@@ -1,12 +1,15 @@
 language: objective-c
+xcode_sdk: iphonesimulator
+xcode_workspace: RMActionController-Demo.xcworkspace
+xcode_scheme: RMActionController-Demo
 
 os: osx
 osx_image: xcode7.1
 
 before_install:
     - gem update cocoapods
-    - brew update
-    - brew upgrade xctool
+#    - brew update
+#    - brew upgrade xctool
 
 env:
   matrix:
@@ -20,5 +23,5 @@ env:
     - NAME='iPhone 6 Plus' OS=9.0
     - NAME='iPad 2' OS=9.0
     - NAME='iPad Air' OS=9.0
-script:
-  - xctool test -workspace RMActionController-Demo.xcworkspace -scheme RMActionController-Demo -sdk iphonesimulator -destination "platform=iOS Simulator,name=$NAME,OS=$OS"
+#script:
+#  - xctool test -workspace RMActionController-Demo.xcworkspace -scheme RMActionController-Demo -sdk iphonesimulator -destination "platform=iOS Simulator,name=$NAME,OS=$OS"
