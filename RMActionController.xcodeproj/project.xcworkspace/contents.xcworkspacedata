@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:RMActionViewController-Demo.xcodeproj">
+      location = "self:RMActionController.xcodeproj">
    </FileRef>
 </Workspace>
