@@ -970,7 +970,7 @@ typedef NS_ENUM(NSInteger, RMActionControllerAnimationStyle) {
     return nil;
 }
 
-+ (nullable instancetype)actionWithStyle:(RMActionStyle)style andActions:(nonnull NSArray<RMAction<RMActionController *> *> *)actions {
++ (nullable instancetype)actionWithStyle:(RMActionStyle)style andActions:(nonnull NSArray<RMAction *> *)actions {
     NSAssert([actions count] > 0, @"Tried to initialize RMGroupedAction with less than one action.");
     NSAssert([actions count] > 1, @"Tried to initialize RMGroupedAction with one action. Use RMAction in this case.");
     

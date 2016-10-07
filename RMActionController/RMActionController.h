@@ -27,7 +27,7 @@
 #import <UIKit/UIKit.h>
 
 @class RMActionController;
-@class RMAction<T : RMActionController *>;
+@class RMAction;
 
 /**
  *  RMActionControllerStyle is used to determine the display style of RMActionController. There are three styles available: White, black and the default style, which is white.
@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, RMActionControllerStyle) {
  *
  *  Usually, RMActionController is subclassed to display custom content views. See RMDateSelectionViewController and RMPickerViewController on how this works.
  */
-@interface RMActionController<T : UIView *> : UIViewController <UIAppearanceContainer>
+@interface RMActionController : UIViewController <UIAppearanceContainer>
 
 /// @name Getting an Instance
 #pragma mark - Getting an Instance
@@ -69,7 +69,7 @@ typedef NS_ENUM(NSInteger, RMActionControllerStyle) {
  *
  *  @return A new instance of RMActionController.
  */
-+ (nullable instancetype)actionControllerWithStyle:(RMActionControllerStyle)aStyle selectAction:(nullable RMAction<RMActionController<T> *> *)selectAction andCancelAction:(nullable RMAction<RMActionController<T> *> *)cancelAction;
++ (nullable instancetype)actionControllerWithStyle:(RMActionControllerStyle)aStyle selectAction:(nullable RMAction *)selectAction andCancelAction:(nullable RMAction *)cancelAction;
 
 /**
  *  Returns a new instance of RMActionController.
@@ -82,7 +82,7 @@ typedef NS_ENUM(NSInteger, RMActionControllerStyle) {
  *
  *  @return A new instance of RMActionController.
  */
-+ (nullable instancetype)actionControllerWithStyle:(RMActionControllerStyle)aStyle title:(nullable NSString *)aTitle message:(nullable NSString *)aMessage selectAction:(nullable RMAction<RMActionController<T> *> *)selectAction andCancelAction:(nullable RMAction<RMActionController<T> *> *)cancelAction;
++ (nullable instancetype)actionControllerWithStyle:(RMActionControllerStyle)aStyle title:(nullable NSString *)aTitle message:(nullable NSString *)aMessage selectAction:(nullable RMAction *)selectAction andCancelAction:(nullable RMAction *)cancelAction;
 
 /**
  *  Initializes a new instance of RMActionController.
@@ -97,7 +97,7 @@ typedef NS_ENUM(NSInteger, RMActionControllerStyle) {
  *
  *  @return An initialized of RMActionController.
  */
-- (nullable instancetype)initWithStyle:(RMActionControllerStyle)aStyle title:(nullable NSString *)aTitle message:(nullable NSString *)aMessage selectAction:(nullable RMAction<RMActionController<T> *> *)selectAction andCancelAction:(nullable RMAction<RMActionController<T> *> *)cancelAction NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithStyle:(RMActionControllerStyle)aStyle title:(nullable NSString *)aTitle message:(nullable NSString *)aMessage selectAction:(nullable RMAction *)selectAction andCancelAction:(nullable RMAction *)cancelAction NS_DESIGNATED_INITIALIZER;
 
 /// @name User Interface
 #pragma mark - User Interface
@@ -128,14 +128,14 @@ typedef NS_ENUM(NSInteger, RMActionControllerStyle) {
 /**
  *  An array of actions that has been added to the RMActionController
  */
-@property (nonnull, nonatomic, readonly) NSArray<RMAction<RMActionController<T> *> *> *actions;
+@property (nonnull, nonatomic, readonly) NSArray<RMAction *> *actions;
 
 /**
  *  Use this method to add further actions to the RMActionController.
  *
  *  @param action The instance of RMAction to add.
  */
-- (void)addAction:(nonnull RMAction<RMActionController<T> *> *)action;
+- (void)addAction:(nonnull RMAction *)action;
 
 /// @name Content View
 #pragma mark - Content View
@@ -145,7 +145,7 @@ typedef NS_ENUM(NSInteger, RMActionControllerStyle) {
  *
  *  Overwrite this method in a subclass of RMActionController and return your custom content view.
  */
-@property (nonnull, nonatomic) T contentView;
+@property (nonnull, nonatomic) UIView * contentView;
 
 /// @name Effects
 #pragma mark - Effects
@@ -210,7 +210,7 @@ typedef NS_ENUM(NSInteger, RMActionStyle) {
 /**
  *  A RMAction instance represents an action that can be tapped by the use when a RMActionController is presented. It has a title or image for identifying the action and a handler which is calledwhen the action has been tapped by the user.
  */
-@interface RMAction<T : RMActionController *> : NSObject
+@interface RMAction : NSObject
 
 /// @name Getting an Instance
 #pragma mark - Getting an Instance
@@ -224,7 +224,7 @@ typedef NS_ENUM(NSInteger, RMActionStyle) {
  *
  *  @return The new instance of RMAction.
  */
-+ (nullable instancetype)actionWithTitle:(nonnull NSString *)title style:(RMActionStyle)style andHandler:(nullable void (^)(T __nonnull controller))handler;
++ (nullable instancetype)actionWithTitle:(nonnull NSString *)title style:(RMActionStyle)style andHandler:(nullable void (^)(RMActionController * __nonnull controller))handler;
 
 /**
  *  Returns a new instance of RMAction.
@@ -235,7 +235,7 @@ typedef NS_ENUM(NSInteger, RMActionStyle) {
  *
  *  @return The new instance of RMAction.
  */
-+ (nullable instancetype)actionWithImage:(nonnull UIImage *)image style:(RMActionStyle)style andHandler:(nullable void (^)(T __nonnull controller))handler;
++ (nullable instancetype)actionWithImage:(nonnull UIImage *)image style:(RMActionStyle)style andHandler:(nullable void (^)(RMActionController * __nonnull controller))handler;
 
 /// @name Properties
 #pragma mark - Properties
@@ -269,7 +269,7 @@ typedef NS_ENUM(NSInteger, RMActionStyle) {
  *
  *  Normally, a RMActionController uses one row for every action that has been added. RMGroupedActions offers the possibility to show multiple RMActions in one row.
  */
-@interface RMGroupedAction<T : RMActionController *> : RMAction<T>
+@interface RMGroupedAction : RMAction
 
 /// @name Getting an Instance
 #pragma mark - Getting an Instance
@@ -282,11 +282,11 @@ typedef NS_ENUM(NSInteger, RMActionStyle) {
  *
  *  @return The new instance of RMGroupedAction
  */
-+ (nullable instancetype)actionWithStyle:(RMActionStyle)style andActions:(nonnull NSArray<RMAction<T> *> *)actions;
++ (nullable instancetype)actionWithStyle:(RMActionStyle)style andActions:(nonnull NSArray<RMAction *> *)actions;
 
 /**
  *  An array of actions the RMGroupedAction consists of.
  */
-@property (nonnull, nonatomic, strong, readonly) NSArray<RMAction<T> *> *actions;
+@property (nonnull, nonatomic, strong, readonly) NSArray<RMAction *> *actions;
 
 @end
